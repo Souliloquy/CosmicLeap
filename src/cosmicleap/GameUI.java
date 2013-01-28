@@ -6,7 +6,6 @@ package cosmicleap;
 
 import com.imi.Cosmic;
 import com.imi.cosmic.UI.CosmicUIContainer;
-import com.imi.cosmic.UI.CosmicUILabel;
 import com.imi.cosmic.UI.HUD;
 
 /**
@@ -24,7 +23,7 @@ public class GameUI  {
     {
         // Get the game HUD ready
         zLayers = HUD.generateHUDZLayers(10, 0.0001f);
-        Cosmic.getHUDComponent().getComponent().name = "PvLHUD";
+        Cosmic.getHUDComponent().getComponent().name = "CosmicLeapHUD";
         gameHUD = (CosmicUIContainer)Cosmic.getHUDComponent().getComponent();
 //        gameHUD.set(CosmicUIContainer.load("ui/PvLHUD.cui"));
         gameHUD.initialize();    

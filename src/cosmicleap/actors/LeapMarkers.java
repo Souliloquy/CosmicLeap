@@ -10,28 +10,29 @@ import com.imi.cosmic.ProcessorComponent;
 import com.imi.cosmic.ProcessorComponentUpdate;
 import com.imi.utils.CosmicDebug;
 import com.imi.utils.DeltaUpdatable;
+import com.imi.utils.MathUtils;
 import com.imi.vecmath.Vector3f;
-import cosmicleap.LeapListener;
+import cosmicleap.CosmicLeap;
 
 /**
  *
  * @author Lou Hayt
  */
-public class LeapHand implements DeltaUpdatable {
+public class LeapMarkers implements DeltaUpdatable {
     
-    Entity entity = new Entity("LeapHand");
+    Entity entity = new Entity("LeapMarkers");
     
-    Vector3f [] fingerPos = new Vector3f[5];
+    Vector3f [] markerWorldPos = new Vector3f[10];
     
     Vector3f camPos = new Vector3f();
     Vector3f camFwd = new Vector3f();
     Vector3f marker = new Vector3f();
 
-    public LeapHand() {
-        for(int i = 0; i < fingerPos.length; i++)
+    public LeapMarkers() {
+        for(int i = 0; i < markerWorldPos.length; i++)
         {
-            fingerPos[i] = new Vector3f();
-            CosmicDebug.createDebugTrackingSphere(fingerPos[i], null, 0.1f);
+            markerWorldPos[i] = new Vector3f();
+            CosmicDebug.createDebugTrackingSphere(markerWorldPos[i], MathUtils.generateRandomPositiveVector(), 0.1f);
         }
         
         ProcessorComponent pc = new ProcessorComponentUpdate(this, true);
@@ -49,21 +50,20 @@ public class LeapHand implements DeltaUpdatable {
         camPos.add(camFwd);               
         
         // Move position with sensor offset
-        if (LeapListener.markerPosition[0] == null)
-            return;
-        for(int i = 0; i < 5; i++)
+        Vector3f [] markerPos = CosmicLeap.getLeap().getMarkerPos();
+        for(int i = 0; i < 10; i++)
         {
-            marker.set(LeapListener.markerPosition[i]);
+//            System.out.println("pos " + markerPos[i]);
+            marker.set(markerPos[i]);
             Cosmic.getMainCamera().transformPoint(marker);
-            marker.scale(0.0025f);
-    //        System.out.println("Offset: " + marker);
-            fingerPos[i].set(camPos);
-            fingerPos[i].add(marker);
+            marker.scale(0.005f);
+//            System.out.println("Offset:/ " + marker);
+            markerWorldPos[i].set(camPos);
+            markerWorldPos[i].add(marker);
         }
     }
 
     public Entity getEntity() {
         return entity;
     }
-    
 }

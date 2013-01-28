@@ -70,25 +70,6 @@ public class GameInput implements InputManager.InputClient, PickResult.PickResul
 //                System.out.println("Switching to tumble crew camera");
 //                CosmicLeap.initializeCrewCamera();
             }
-            
-            if (ke.getKeyCode() == KeyEvent.VK_3)
-            {
-                System.out.println("Start LeapMotion");
-                startLeapMotion();
-            }
-            if (ke.getKeyCode() == KeyEvent.VK_4)
-            {
-                System.out.println("Stop LeapMotion");
-                stopLeapMotion();
-            }
         }
-    }
-
-    private void startLeapMotion() {
-        LeapListener.startLeapMotion();
-    }
-    
-    private void stopLeapMotion() {
-        LeapListener.stopLeapMotion();
     }
 }

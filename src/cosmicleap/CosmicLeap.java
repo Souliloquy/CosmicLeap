@@ -22,7 +22,6 @@ import com.imi.cosmic.animation.AnimationComponentManager;
 import com.imi.input.InputManager;
 import com.imi.jist3d.render.RendererManagerBase;
 import com.imi.tools.CosmicResource;
-import com.imi.tools.explorer.AppearanceTreeNode;
 import com.imi.utils.CosmicDebug;
 import com.imi.vecmath.Vector3f;
 import java.util.logging.Level;
@@ -37,13 +36,14 @@ public class CosmicLeap extends CosmicEngine.AppBase {
 
     public static Entity game, level;
     public static GameUI gameUI;
+    public static LeapListener leap;
         
     public static boolean developer = false; // command line argument
     
     static String appName = null;
     static final int SCREEN_WIDTH = 800;
     static final int SCREEN_HEIGHT = 600;
-    static final Vector3f cameraInitPos = new Vector3f(0.0f, 50.0f, 10.0f);
+    static final Vector3f cameraInitPos = new Vector3f(0.0f, 100.0f, 10.0f);
     
     SplashScreen splashScreen = new SplashScreen();
     
@@ -101,7 +101,10 @@ public class CosmicLeap extends CosmicEngine.AppBase {
 
         game = new Entity("GameManager");
         gameUI = new GameUI("v0.01");
-
+        leap = new LeapListener();
+        leap.startLeapMotion();
+        CosmicEngine.addExitListener(leap.createExitListener());
+        
         if (appName == null)
             System.out.println("ERROR - No app name is set!");
         else
@@ -203,6 +206,10 @@ public class CosmicLeap extends CosmicEngine.AppBase {
 
     public static Entity getLevel() {
         return level;
+    }
+
+    public static LeapListener getLeap() {
+        return leap;
     }
 
     public static boolean isDeveloper() {

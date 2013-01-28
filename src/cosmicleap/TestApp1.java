@@ -8,7 +8,7 @@ package cosmicleap;
 
 import com.imi.cosmic.Entity;
 import cosmicleap.CosmicLeap.CosmicLeapApp;
-import cosmicleap.actors.LeapHand;
+import cosmicleap.actors.LeapMarkers;
 
 /**
  *
@@ -34,8 +34,8 @@ public class TestApp1 implements CosmicLeapApp {
         GameAudio.initSounds();
 
         
-        LeapHand hand1 = new LeapHand();
-        level.addEntity(hand1.getEntity());
+        LeapMarkers markers = new LeapMarkers();
+        level.addEntity(markers.getEntity());
     }
     
     @Override
